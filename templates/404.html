@@ -1,0 +1,10 @@
+{% extends "template.html" %}
+
+{% block title %}Welcome{% endblock %}
+{% block content %}
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2" style="text-align: center;">
+      <img src="{{ url_for('static', filename='img/barrel.jpg') }}" class="img-responsive" /> <br /><br />
+      <a href="http://xkcd.com/1/">404 by XKCD</a>
+    </div>
+{% endblock %}
