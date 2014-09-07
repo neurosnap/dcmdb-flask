@@ -48,7 +48,7 @@ Run the server
 
 .. code:: bash
 
-    python apts.py
+    python runserver.py
 
 Open browser and point to http://localhost:5000/
 
