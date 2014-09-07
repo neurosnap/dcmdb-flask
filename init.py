@@ -1,2 +1,2 @@
-from apts import db, create_app
+from dcmdb import db, create_app
 db.create_all(app=create_app())

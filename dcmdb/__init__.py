@@ -11,7 +11,6 @@ PARENT_DIR = os.path.abspath(os.path.join(BASE_DIR, os.pardir))
 class ConfigClass(object):
     # Configure Flask
     SECRET_KEY = 'THIS IS AN INSECURE SECRET'
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///dcmdb_test.sqlite'
     CSRF_ENABLED = True
     DEBUG = True
     UPLOAD_FOLDER = os.path.join(PARENT_DIR, 'uploads')
