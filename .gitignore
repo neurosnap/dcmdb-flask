@@ -1,5 +1,10 @@
+*.sqlite
+node_modules
+dist
+.tmp
+.sass-cache
+dcmdb/static/bower_components
+test/bower_components
 *.pyc
 *.*~
-build
-run
-settings.py
+local_settings.py

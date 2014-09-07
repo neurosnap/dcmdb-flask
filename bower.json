@@ -1,0 +1,26 @@
+{
+  "name": "apts",
+  "version": "0.0.0",
+  "authors": [
+    "Eric Bower <neurosnap@gmail.com>"
+  ],
+  "description": "Apartments in Detroit Metro",
+  "license": "MIT",
+  "homepage": "http://neurosnap.net",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "static/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery-ui-map": "~3.0.0",
+    "jquery-file-upload": "~9.7.0",
+    "handlebars": "~1.3.0",
+    "ScrollMagic": "~1.1.1",
+    "skrollr": "~0.6.26"
+  }
+}

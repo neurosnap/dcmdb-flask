@@ -1,13 +1,13 @@
 #!/bin/bash
 
-NAME="dcmdb"
-FLASKDIR=/srv/sites/dcmdb
-SOCKFILE=/srv/sites/dcmdb/run/gunicorn.sock
+NAME="apts"
+FLASKDIR=/srv/sites/apts
+SOCKFILE=/srv/sites/apts/run/gunicorn.sock
 USER=ubuntu
 GROUP=ubuntu
 NUM_WORKERS=3
-WSGI_MODULE=dcmdb
-VIRTENV=/home/ubuntu/.virtualenvs/dcmdb
+WSGI_MODULE=apts
+VIRTENV=/home/ubuntu/.virtualenvs/apts
 
 echo "Starting $NAME"
 
