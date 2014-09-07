@@ -6,8 +6,8 @@ module.exports = function(grunt) {
                 "separator": ";"
             },
             "dist": {
-                "src": ["apts/**/*.js"],
-                "dest": "apts/static/<%= pkg.name %>.js"
+                "src": ["dcmdb/**/*.js"],
+                "dest": "dcmdb/static/<%= pkg.name %>.js"
             }
         },
         "uglify": {
@@ -16,7 +16,7 @@ module.exports = function(grunt) {
             },
             "dist": {
                 "files": {
-                    "apts/static/<%= pkg.name %>.min.js": ["<%= concat.dist.dest %>"]
+                    "dcmdb/static/<%= pkg.name %>.min.js": ["<%= concat.dist.dest %>"]
                 }
             }
         }
