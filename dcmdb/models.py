@@ -1,7 +1,7 @@
 from datetime import datetime
 
-from sqlalchemy.dialects.postgresql import JSON
 from flask.ext.sqlalchemy import SQLAlchemy
+from sqlalchemy.dialects.postgresql import JSON
 
 db = SQLAlchemy()
 

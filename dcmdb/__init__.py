@@ -24,7 +24,7 @@ def create_app():
     try:
         app.config.from_object('local_settings')
     except:
-        pass
+        app.logger.warning("No local settings found")
 
     # load the views via blueprints
     #app.register_blueprint(dicom)
