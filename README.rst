@@ -1,7 +1,7 @@
-Apartments
+dcmdb v2
 ==========
 
-Detroit Metro apartment listings
+The mission of this service is to create a repository of easy to access, publicly available, anonymous medical diagnotic images. With this repository we also wish to create a social platform for discussion, teaching, and learning.
 
 How To
 ======
