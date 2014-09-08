@@ -45,15 +45,6 @@ $(function() {
                     }
                 }
             });
-            var found_img = false;
-            $("#apt-gallery > img").each(function() {
-                if ($(this).attr("src") == data.result.name) {
-                    found_img = true;
-                }
-            });
-            if (!found_img) {
-                $("#apt-gallery").append('<img src="/uploads/' + data.result.name + '" class="img-thumbnail apt-photo">');
-            }
         },
         "progress": function(e, data) {
             var progress = parseInt(data.loaded / data.total * 100, 10);
