@@ -7,7 +7,7 @@ Dependencies
 ============
 
 * Python <= 2.7
-* GDMC (see https://github.com/neurosnap/mudicom for installation details)
+* GDCM (see https://github.com/neurosnap/mudicom for installation details)
 * PostgreSQL (http://www.postgresql.org/)
 * Nodejs (http://nodejs.org/)
 * Bower (http://bower.io/)
