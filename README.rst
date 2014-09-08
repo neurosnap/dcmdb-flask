@@ -7,10 +7,10 @@ Dependencies
 ============
 
 * Python <= 2.7
-* PostgreSQL
-* Nodejs
-* Bower
-* Grunt
+* PostgreSQL (http://www.postgresql.org/)
+* Nodejs (http://nodejs.org/)
+* Bower (http://bower.io/)
+* Grunt (http://gruntjs.com/)
 
 How To
 ======
@@ -37,7 +37,6 @@ Install python modules
 
     pip install conf/requirements.txt
 
-Install nodejs: http://nodejs.org/
 Install bower and grunt
 
 .. code:: bash
