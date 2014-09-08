@@ -25,7 +25,7 @@ Clone repository and navigate into directory
 Create postgreSQL database for website
 
 Create local_settings.py file, replacing
-`user`, `pass`, `database` with postgresql credentials
+``user``, ``pass``, ``database`` with postgresql credentials
 
 .. code: python
 
