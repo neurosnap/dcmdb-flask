@@ -18,6 +18,7 @@
   ],
   "dependencies": {
     "jquery-file-upload": "~9.7.0",
-    "skrollr": "~0.6.26"
+    "skrollr": "~0.6.26",
+    "handlebars": "~2.0.0"
   }
 }

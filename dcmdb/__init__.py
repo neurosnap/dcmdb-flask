@@ -4,6 +4,7 @@ import os.path
 from flask import Flask, render_template, request, send_from_directory, jsonify
 
 from .models import db
+from .helpers import upload_file
 
 BASE_DIR = os.path.dirname(os.path.realpath(__file__))
 PARENT_DIR = os.path.abspath(os.path.join(BASE_DIR, os.pardir))
@@ -77,6 +78,20 @@ def create_app():
     @app.route('/upload')
     def upload():
         return render_template('upload.html')
+
+    @app.route('/upload/handle/', methods=['GET', 'POST'])
+    def handle():
+        file_to_upload = request.files["files[]"]
+        fname = upload_file(file_to_upload)
+
+        #db.session.add(model)
+        #db.session.commit()
+
+        response = {
+            "name": fname,
+        }
+
+        return jsonify(**response)
 
     return app
 

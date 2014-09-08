@@ -1,133 +1,108 @@
 {% extends "template.html" %}
 
-{% block css %}
-<link href="{{STATIC_URL}}css/jquery.fileupload-ui.css" rel="stylesheet">
-<link href="{{STATIC_URL}}css/uploader.css" rel="stylesheet">
+{% block js %}
+<script src="{{ url_for('static', filename='bower_components/handlebars/handlebars.min.js') }}"></script>
+<script src="{{ url_for('static', filename='bower_components/jquery-file-upload/js/vendor/jquery.ui.widget.js') }}"></script>
+<script src="{{ url_for('static', filename='bower_components/jquery-file-upload/js/jquery.iframe-transport.js') }}"></script>
+<script src="{{ url_for('static', filename='bower_components/jquery-file-upload/js/jquery.fileupload.js') }}"></script>
+<script src="{{ url_for('static', filename='bower_components/jquery-file-upload/js/jquery.fileupload-process.js') }}"></script>
+<script src="{{ url_for('static', filename='bower_components/jquery-file-upload/js/jquery.fileupload-ui.js') }}"></script>
+<script src="{{ url_for('static', filename='upload.js') }}"></script>
+{% raw %}
+<script id="file_template" type="text/x-handlebars-template">
+    <tr class="queued_file">
+        <td>{{ name }}</td>
+        <td>{{ size }}</td>
+        <td>{{ type }}</td>
+        <td style="width: 150px;">
+            <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                <div class="progress-bar progress-bar-success" style="width: 0%;"></div>
+            </div>
+        </td>
+        <td>
+            <button type="button" class="btn btn-warning file_rm">
+                <i class="glyphicon glyphicon-trash"></i>
+                 Clear File
+            </button>
+            <button type="button" class="btn btn-primary file_up">
+                <i class="glyphicon glyphicon-upload"></i>
+                <span>Upload</span>
+            </button>
+        </td>
+    </tr>
+</script>
+{% endraw %}
 {% endblock %}
 
-{% block js %}
-<script src="{{STATIC_URL}}js/jquery.ui.widget.min.js" type="text/javascript"></script>
-<script src="{{STATIC_URL}}js/jquery.ui.progressbar.min.js" type="text/javascript"></script>
-<script src="{{STATIC_URL}}js/jquery.iframe-transport.js" type="text/javascript"></script>
-<script src="{{STATIC_URL}}js/jquery.fileupload.js" type="text/javascript"></script>
-<script src="{{STATIC_URL}}js/jquery.fileupload-process.js" type="text/javascript"></script>
-<script src="{{STATIC_URL}}js/jquery.fileupload-ui.js" type="text/javascript"></script>
-<script src="{{STATIC_URL}}js/uploader.js" type="text/javascript"></script>
+{% block css %}
+<link href="{{ url_for('static', filename='bower_components/jquery-file-upload/css/jquery.fileupload.css') }}" rel="stylesheet">
+<link href="{{ url_for('static', filename='upload.css') }}" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
 <div class="page-header">
-
-		<h3>DICOM Uploader and Validator</h3>
-
+    <h3>DICOM Uploader</h3>
 </div>
 
 <div class="row">
-		<div class="col-md-12">
-				<p>
-				This utility allows people to anonymously upload DICOM files.  
-				No patient information will be saved on our servers.  
-				Before uploading any file, please read the <a href="/main/tos">Terms of Service</a> and <a href="/main/privacy">Privacy Policy</a>.  
-				This utility will validate the DICOM file using <a href="http://www.dclunie.com/dicom3tools/dciodvfy.html">dciodvfy</a> and also attempt to extract an image from the DICOM file using <a href="http://sourceforge.net/projects/gdcm/">Grassroots DICOM</a>.
-				However, not all transfer syntaxes are supported by this service at present, <a href="/main/transfer_syntax">here</a> is a list of currently supported
-				and unsupported transfer syntaxes. <br /> <br />
-
-				If you simply want to validate the DICOM file, but not permenantly save the files in our database and on our server, select the option before uploading.
-				</p>
-		</div>
+    <div class="col-md-12">
+        <p>
+        This utility allows people to anonymously upload DICOM files.
+        <strong>These files will not be saved on our servers!
+        No patient information will be saved on our servers.</strong>
+        Our goal is to simply extract non-personal information from uploaded
+        DICOM files for educational purposed.
+        Before uploading any file, please read the
+        <a href="/main/tos">Terms of Service</a> and <a href="/main/privacy">Privacy Policy</a>.
+        This utility will validate the DICOM file using
+        <a href="http://www.dclunie.com/dicom3tools/dciodvfy.html">dciodvfy</a>
+        and also attempt to extract an image from the DICOM file using
+        <a href="http://sourceforge.net/projects/gdcm/">Grassroots DICOM</a>.
+        However, not all transfer syntaxes are supported by this service at present,
+        <a href="/main/transfer_syntax">here</a> is a list of currently supported
+        and unsupported transfer syntaxes. <br /> <br />
+        </p>
+    </div>
 </div>
-
-<hr />
-
-<form id="fileupload" action="/uploader/handle_upload" method="POST" enctype="multipart/form-data">
-
-		<div class="checkbox">
-				<label>
-						<input type="checkbox" id="accept_tos" /> I accept the <a href="/main/tos">Terms of Service</a> and <a href="/main/privacy">Privacy Policy</a>
-				</label>
-		</div>
-
-		<div class="checkbox">
-				<label>
-						<input type="checkbox" id="validate_only" name="validate_only" /> Validate DICOM file, but do <strong>not</strong> save these DICOM files on dcmdb's server.</a>
-				</label>
-		</div>
-
-	<div class="row fileupload-buttonbar">
-
-		<div class="col-md-12">
-
-						{% if uploadable %}
-						<!-- The fileinput-button span is used to style the file input field as button -->
-						<span class="btn btn-success fileinput-button">
-								<span class="glyphicon glyphicon-plus"></span>
-								<span>Add DICOM files</span>
-								<input type="file" name="files[]" multiple>
-						</span>
-
-						<button type="submit" id="send_files" class="btn btn-info start">
-								<span class="glyphicon glyphicon-upload"></span>
-								<span>Start Upload</span>
-						</button>
-
-						<button type="button" id="clear_files" class="btn btn-warning">
-								<span class="glyphicon glyphicon-ban-circle"></span>
-								<span>Clear Uploads</span>
-						</button>
-						{% else %}
-
-						<div class="alert alert-danger">Oops, dcmproc library not found in dcmdb/uploader directory, cannot upload anything.</div>
-
-						{% endif %}
-
-						<!-- The loading indicator is shown during file processing -->
-						<span class="fileupload-loading"></span>
-			 
-				</div>
-
-		</div>
-		<div class="row">
-
-		<div class="col-md-12 fileupload-progress">
-
-						<!-- The global progress bar -->
-						<div id="progress" class="progress">
-								<div class="progress-bar progress-bar-success" role="progressbar" style="width: 0%;"></div>
-						</div>
-						<!-- The extended global progress information -->
-						<div class="progress-extended">&nbsp;</div>
-
-				</div>
-
-	</div>
-
-	<div class="row">
-
-		<div class="col-md-12">
-
-			<div id="display_uploads"></div>
-					<!-- <table role="presentation" class="table table-striped"><tbody class="files"></tbody></table> -->
-
-		</div>
-
-	</div>
-
-</form>
-
-<br />
 
 <div class="row">
+    <div class="col-md-12">
+        <form id="fileupload" action="/upload/handle/" method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="type" value="{{ type }}">
+            <input type="hidden" name="id" value="{{ id }}">
+            <div class="row fileupload-buttonbar">
+                <div class="col-md-5">
+                    <span class="btn btn-success fileinput-button">
+                        <i class="glyphicon glyphicon-plus"></i>
+                        <span>Add files ...</span>
+                        <input type="file" name="files[]" multiple>
+                    </span>
+                    <button type="submit" class="btn btn-primary start">
+                        <i class="glyphicon glyphicon-upload"></i>
+                        <span>Start upload</span>
+                    </button>
+                    <button type="button" class="btn btn-warning file_rm_all">
+                        <i class="glyphicon glyphicon-trash"></i>
+                        <span>Clear queue</span>
+                    </button>
 
-	<div class="col-md-12">
+                    <span class="fileupload-process"></span>
+                </div>
 
-				<div class="alert alert-warning">5 MB is the maximum file size per file.</div>
-				<div class="alert alert-danger">20 files is the maximum number of files per upload session.</div>
-				<div class="alert alert-warning">ZIP/RAR formats are currently not supported.</div>
-		<div class="alert alert-info">All DICOM files will be uploaded to our server while ensuring anonymity.</div>
+                <div class="col-md-7 fileupload-progress">
+                    <div id="progress_all" class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                        <div class="progress-bar progress-bar-success" style="width:0%;"></div>
+                    </div>
+                    <div class="progress-extended">&nbsp;</div>
+                </div>
+            </div>
 
-	</div>
+            <table role="presentation" class="table table-striped">
+                <tbody class="files">
+                </tbody>
+            </table>
 
+        </form>
+    </div>
 </div>
-
-
 {% endblock %}
