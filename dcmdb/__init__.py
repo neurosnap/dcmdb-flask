@@ -12,7 +12,7 @@ class ConfigClass(object):
     # Configure Flask
     SECRET_KEY = 'THIS IS AN INSECURE SECRET'
     CSRF_ENABLED = True
-    DEBUG = True
+    DEBUG = False
     UPLOAD_FOLDER = os.path.join(PARENT_DIR, 'uploads')
     MAX_CONTENT_LENGTH = 5 * 2 ** 20
 
