@@ -12,7 +12,6 @@ from dcmdb import app, db, create_app
 @task
 def run():
     """ Initiates the server """
-    print(app.config)
     app.run(debug=True)
 
 @task
