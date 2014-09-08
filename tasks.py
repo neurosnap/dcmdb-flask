@@ -1,6 +1,7 @@
 import os
 import sys
 
+from invoke import run as invoke_run
 from invoke import task
 
 from dcmdb import app, db, create_app
@@ -10,6 +11,15 @@ def run():
     """ Initiates the server """
     print(app.config)
     app.run(debug=True)
+
+@task
+def build():
+    """ Installs node, bower packages and creates tables """
+    print("Installing node packages")
+    invoke_run("npm install")
+    print("Install bower packages")
+    invoke_run("bower install")
+    create_db()
 
 @task
 def create_db():
