@@ -26,29 +26,18 @@ Install bower and grunt
 
     npm install -g bower grunt-cli
 
-Install nodejs components
+Install package dependencies and create database tables
+(node, bower, postgresql)
 
 .. code:: bash
 
-    npm install
-
-Install bower components
-
-.. code:: bash
-
-    bower install
-
-Run init script
-
-.. code:: bash
-
-    python init.py
+    invoke install
 
 Run the server
 
 .. code:: bash
 
-    python runserver.py
+    invoke run
 
 Open browser and point to http://localhost:5000/
 

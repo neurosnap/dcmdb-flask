@@ -1,3 +1,6 @@
+""" dcmdb's task runner
+It helps automate some processes mainly for development purposes.
+"""
 import os
 import sys
 
@@ -13,11 +16,11 @@ def run():
     app.run(debug=True)
 
 @task
-def build():
+def install():
     """ Installs node, bower packages and creates tables """
     print("Installing node packages")
     invoke_run("npm install")
-    print("Install bower packages")
+    print("Installing bower packages")
     invoke_run("bower install")
     create_db()
 
@@ -37,6 +40,7 @@ def clean_db():
 
 @task
 def clean_uploads(folder=app.config['UPLOAD_FOLDER']):
+    """ Clears all files from the uploads folder """
     print("All uploads in '%s' removed" % folder)
     for the_file in os.listdir(folder):
         file_path = os.path.join(folder, the_file)
