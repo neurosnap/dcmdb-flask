@@ -17,7 +17,7 @@ How To
 
 Clone repository and navigate into directory
 
-.. code: bash
+.. code:: bash
 
     git clone <git repo address>
     cd <git repo folder>
@@ -27,7 +27,7 @@ Create postgreSQL database for website
 Create local_settings.py file, replacing
 ``user``, ``pass``, ``database`` with postgresql credentials
 
-.. code: python
+.. code:: python
 
     SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://user:pass@localhost/database'
 
