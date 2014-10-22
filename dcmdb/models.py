@@ -5,6 +5,40 @@ from sqlalchemy.dialects.postgresql import JSON
 
 db = SQLAlchemy()
 
+class DataElement(db.Model):
+    __tablename__ = 'data_element'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(255), nullable=False)
+    min_group = db.Column(db.Integer, nullable=False)
+    max_group = db.Column(db.Integer, nullable=False)
+    min_element = db.Column(db.Integer, nullable=False)
+    max_element = db.Column(db.Integer, nullable=False)
+    keyword = db.Column(db.String(255), nullable=False)
+    VR = db.Column(db.String(255), nullable=True)
+    VM = db.Column(db.String(255), nullable=True)
+    status = db.Column(db.String(255), nullable=True)
+    created = db.Column(db.DateTime)
+
+    def __init__(self, name=None, min_group=None, max_group=None,
+                 min_element=None, max_element=None, keyword=None, VR=None,
+                 VM=None, status=None, created=None):
+        self.name = name
+        self.min_group = min_group
+        self.max_group = max_group
+        self.min_element = min_element
+        self.max_element = max_element
+        self.keyword = keyword
+        self.VR = VR
+        self.VM = VM
+        self.status = status
+        if created is None:
+            created = datetime.utcnow()
+        self.created = created
+
+    def __repr__(self):
+        return "<DataElement {0} ({1}-{2}, {3}-{4})>" \
+                .format(self.name, self.min_group, self.max_group,
+                        self.min_element, self.max_element)
 
 class Study(db.Model):
     __tablename__ = 'study'

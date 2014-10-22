@@ -4,31 +4,35 @@ import os.path
 from flask import Flask, render_template, request, send_from_directory, jsonify
 
 from .models import db
-from .helpers import upload_file
+from .uploader.views import blueprint as explorer
+from .uploader.views import blueprint as uploader
 
 BASE_DIR = os.path.dirname(os.path.realpath(__file__))
 PARENT_DIR = os.path.abspath(os.path.join(BASE_DIR, os.pardir))
 
-class ConfigClass(object):
+class DefaultSettings(object):
     # Configure Flask
     SECRET_KEY = 'THIS IS AN INSECURE SECRET'
     CSRF_ENABLED = True
-    DEBUG = False
+    DEBUG = True
     UPLOAD_FOLDER = os.path.join(PARENT_DIR, 'uploads')
     MAX_CONTENT_LENGTH = 5 * 2 ** 20
 
 def create_app():
+    LOG_DIR = ""
+
     app = Flask(__name__)
     # default config
-    app.config.from_object(__name__ + '.ConfigClass')
+    app.config.from_object(DefaultSettings)
     # attempt to import settings from settings file
     try:
         app.config.from_object('local_settings')
     except:
-        app.logger.warning("No local settings found")
+        pass
 
     # load the views via blueprints
-    #app.register_blueprint(dicom)
+    app.register_blueprint(uploader)
+    app.register_blueprint(explorer)
     # adds continue and break to jinja template language
     app.jinja_env.add_extension('jinja2.ext.loopcontrols')
 
@@ -38,6 +42,17 @@ def create_app():
     # create uploads folder if it does not exist
     if not os.path.isdir(app.config['UPLOAD_FOLDER']):
         os.makedirs(app.config['UPLOAD_FOLDER'])
+
+    # log bugs
+    if not app.debug:
+        import logging
+        from logging.handlers import RotatingFileHandler
+        if not os.path.isdir(LOG_DIR):
+            LOG_DIR = PARENT_DIR
+        handler = RotatingFileHandler(os.path.join(LOG_DIR, "flask.log"),
+                    maxBytes=10000, backupCount=1)
+        handler.setLevel(logging.DEBUG)
+        app.logger.addHandler(handler)
 
     @app.errorhandler(404)
     def page_not_found(e):
@@ -51,47 +66,25 @@ def create_app():
     def index():
         return render_template('index.html')
 
-    @app.route('/about')
+    @app.route('/about/')
     def about():
         return render_template('about.html')
 
-    @app.route('/dicom')
+    @app.route('/dicom/')
     def dicom():
         return render_template('dicom.html')
 
-    @app.route('/tos')
+    @app.route('/tos/')
     def tos():
         return render_template('tos.html')
 
-    @app.route('/privacy')
+    @app.route('/privacy/')
     def privacy():
         return render_template('privacy.html')
 
-    @app.route('/transfer_syntax')
+    @app.route('/transfer_syntax/')
     def transfer_syntax():
         return render_template('transfer_syntax.html')
-
-    @app.route('/explore')
-    def explore():
-        return render_template('explore.html')
-
-    @app.route('/upload')
-    def upload():
-        return render_template('upload.html')
-
-    @app.route('/upload/handle/', methods=['GET', 'POST'])
-    def handle():
-        file_to_upload = request.files["files[]"]
-        fname = upload_file(file_to_upload)
-
-        #db.session.add(model)
-        #db.session.commit()
-
-        response = {
-            "name": fname,
-        }
-
-        return jsonify(**response)
 
     return app
 

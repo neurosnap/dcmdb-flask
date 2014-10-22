@@ -8,6 +8,7 @@ from flask import current_app, flash
 ALLOWED_EXTENSIONS = set(['dcm', 'zip', 'rar'])
 
 def allowed_file(fname):
+    fname = fname.lower()
     return '.' in fname and \
         fname.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
