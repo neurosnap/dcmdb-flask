@@ -5,7 +5,7 @@ from flask import Blueprint, render_template, request, jsonify
 from ..helpers import upload_file
 
 blueprint = Blueprint("uploader", __name__,
-                    url_prefix="/upload", template_folder="templates",
+                    url_prefix="/uploader", template_folder="templates",
                     static_folder="static")
 
 @blueprint.route('/')

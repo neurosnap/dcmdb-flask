@@ -1,14 +1,25 @@
 dcmdb v2
 ==========
 
-The mission of this service is to create a repository of easy to access, publicly available, anonymous medical diagnotic images. With this repository we also wish to create a social platform for discussion, teaching, and learning.
+An open-source webservice that provides a range of DICOM development utilities.
+Search our image repository or data element dictionary.
+Edit, validate, or anonymize DICOM files with ease.
 
-* DICOM Data Element Lookup
-* DICOM Data Element Editor
-* DICOM Data Element Anonymizer
-* DICOM Image Anonymizer
+The mission of this service is to create a set of utilities that
+medical technicians can use to view, edit, anonymize, validate,
+and lookup DICOM files or images with a suite of easy to use utilities and a
+repository of anonymous medical diagnotic images. With this service we also
+wish to create a social platform for discussion, teaching, and learning.
+
+Features
+========
+
+* DICOM Data Element Dictionary
+* DICOM Editor
+* DICOM Anonymizer
 * DICOM Validator
-* DICOM Image Database
+* DICOM Image Anonymizer
+* DICOM Image Repository
 
 Dependencies
 ============

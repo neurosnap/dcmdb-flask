@@ -4,8 +4,9 @@ import os.path
 from flask import Flask, render_template, request, send_from_directory, jsonify
 
 from .models import db
-from .uploader.views import blueprint as explorer
+from .explorer.views import blueprint as explorer
 from .uploader.views import blueprint as uploader
+from .dictionary.views import blueprint as dictionary
 
 BASE_DIR = os.path.dirname(os.path.realpath(__file__))
 PARENT_DIR = os.path.abspath(os.path.join(BASE_DIR, os.pardir))
@@ -13,7 +14,7 @@ PARENT_DIR = os.path.abspath(os.path.join(BASE_DIR, os.pardir))
 class DefaultSettings(object):
     # Configure Flask
     SECRET_KEY = 'THIS IS AN INSECURE SECRET'
-    CSRF_ENABLED = True
+    CSRF_ENABLED = False
     DEBUG = True
     UPLOAD_FOLDER = os.path.join(PARENT_DIR, 'uploads')
     MAX_CONTENT_LENGTH = 5 * 2 ** 20
@@ -33,6 +34,7 @@ def create_app():
     # load the views via blueprints
     app.register_blueprint(uploader)
     app.register_blueprint(explorer)
+    app.register_blueprint(dictionary)
     # adds continue and break to jinja template language
     app.jinja_env.add_extension('jinja2.ext.loopcontrols')
 

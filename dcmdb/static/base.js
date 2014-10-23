@@ -8,7 +8,7 @@ $.expr[':'].external = function(obj) {
 
 $(function() {
     $("a:external").each(function() {
-        var link_text = $(this).html() + ' <span class="glyphicon glyphicon-new-window"></span>';
+        var link_text = $(this).html() + ' <i class="fa fa-share-square-o"></i>';
         $(this).html(link_text);
     });
 	$('a:external').attr('target', '_blank');

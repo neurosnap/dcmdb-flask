@@ -1,4 +1,4 @@
-{% extends "template.html" %}
+{% extends "base.html" %}
 
 {% block js %}
 <script type="text/javascript" src="{{STATIC_URL}}js/index.js"></script>
@@ -6,12 +6,22 @@
 
 {% block content %}
 <div class="jumbotron">
-	<h1><span class="glyphicon glyphicon-headphones"></span> dcmdb</h1>
+	<h1><span class="glyphicon glyphicon-headphones"></span> dcmdb.org</h1>
 	<p>
-		An open-source, anonymous, medical diagnostic imaging repository, search engine, and learning utility.
+		An open-source webservice that provides a range of DICOM development utilities.
+        Search our image repository or data element dictionary.
+        Edit, validate, or anonymize DICOM files with ease.
+    </p>
+    <p>
+        The mission of this service is to create a set of utilities that
+        medical technicians can use to view, edit, anonymize, validate,
+        and lookup DICOM files or images with a suite of easy to use utilities and a
+        repository of anonymous medical diagnotic images. With this service we also
+        wish to create a social platform for discussion, teaching, and learning.
 	</p>
 	<p>
-		<a class="btn btn-primary btn-lg" role="button" href="/explore"><span class="glyphicon glyphicon-th"></span> Explore</a></p>
-	</p>
+		<a class="btn btn-primary btn-lg" role="button" href="{{ url_for('explorer.explore') }}">
+            <span class="glyphicon glyphicon-th"></span> Getting Started</a>
+    </p>
 </div>
 {% endblock %}
