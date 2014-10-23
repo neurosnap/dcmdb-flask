@@ -7,7 +7,7 @@ USER=ubuntu
 GROUP=ubuntu
 NUM_WORKERS=3
 WSGI_MODULE=dcmdb
-VIRTENV=/home/ubuntu/.virtualenvs/dcmdb
+VIRTENV=/srv/virtualenvs/dcmdb
 
 echo "Starting $NAME"
 
