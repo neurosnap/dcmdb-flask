@@ -32,9 +32,9 @@ def create_app():
         pass
 
     # load the views via blueprints
-    #app.register_blueprint(uploader)
-    #app.register_blueprint(explorer)
-    #app.register_blueprint(dictionary)
+    app.register_blueprint(uploader)
+    app.register_blueprint(explorer)
+    app.register_blueprint(dictionary)
     # adds continue and break to jinja template language
     app.jinja_env.add_extension('jinja2.ext.loopcontrols')
 
@@ -66,7 +66,7 @@ def create_app():
 
     @app.route('/')
     def index():
-        return render_template('uc.html')
+        return render_template('index.html')
 
     @app.route('/uc')
     def uc():

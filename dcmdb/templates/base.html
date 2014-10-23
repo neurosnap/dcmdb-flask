@@ -26,6 +26,12 @@
 			</div>
 			<div class="collapse navbar-collapse navbar-ex1-collapse">
 				<ul class="nav navbar-nav">
+					<li><a href="{{ url_for('dictionary.search') }}"><i class="fa fa-book"></i> Dictionary</a></li>
+					<li><a href="{{ url_for('explorer.explore') }}"><i class="fa fa-th-large"></i> Explorer</a></li>
+					<li><a href="{{ url_for('uploader.upload') }}"><i class="fa fa-edit"></i> Editor</a></li>
+					<li><a href="{{ url_for('uploader.upload') }}"><i class="fa fa-bug"></i> Validator</a></li>
+					<li><a href="{{ url_for('uploader.upload') }}"><i class="fa fa-bug"></i> Anonymizer</a></li>
+					<li><a href="{{ url_for('uploader.upload') }}"><i class="fa fa-cloud-upload"></i> Uploader</a></li>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 							<i class="fa fa-ellipsis-v"></i> About <b class="caret"></b>
