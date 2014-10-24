@@ -26,6 +26,7 @@
 
 <hr />
 
+{% if ded %}
 {% for element in ded %}
 <div class="row">
 	<div class="col-md-12">
@@ -49,5 +50,12 @@
 </div>
 <hr />
 {% endfor %}
+{% else %}
+	{% if query %}
+	<div class="alert alert-warning">Oops, cannot find any data elements matching your search</div>
+	{% else %}
+	<div class="alert alert-info">Search for a data element by tag group, tag element, value representation, or name</div>
+	{% endif %}
+{% endif %}
 
 {% endblock %}
