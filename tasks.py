@@ -2,7 +2,6 @@
 It helps automate some processes mainly for development purposes.
 """
 import os
-import sys
 import json
 
 from invoke import run as invoke_run

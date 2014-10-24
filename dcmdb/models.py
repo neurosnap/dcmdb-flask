@@ -40,6 +40,23 @@ class DataElement(db.Model):
                 .format(self.name, self.min_group, self.max_group,
                         self.min_element, self.max_element)
 
+    @property
+    def min_group_hex(self):
+        return hex(self.min_group)
+
+    @property
+    def max_group_hex(self):
+        return hex(self.max_group)
+
+    @property
+    def min_element_hex(self):
+        return hex(self.min_element)
+
+    @property
+    def max_element_hex(self):
+        return hex(self.max_element)
+
+
 class Study(db.Model):
     __tablename__ = 'study'
     id = db.Column(db.Integer, primary_key=True)

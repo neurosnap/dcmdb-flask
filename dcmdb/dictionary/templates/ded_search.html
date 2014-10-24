@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block js %}
+{% endblock %}
+
+{% block content %}
+<div class="row">
+	<div class="col-md-2">
+		<div class="input-group">
+			<h5>Search</h5>
+		</div>
+	</div>
+	<div class="col-md-7">
+		<form role="search" method="POST" action="{{ url_for('dictionary.search') }}">
+			<div class="col-md-10">
+				<div class="form-group">
+					<input type="text" class="form-control" name="query" placeholder="Find a data element, e.g. 0x0008 or 16,1" value="{% if query %}{{ query }}{% endif %}">
+				</div>
+			</div>
+			<div class="col-md-2">
+				<button class="btn btn-primary" type="submit">Search</button>
+			</div>
+		</form>
+	</div>
+</div>
+
+<hr />
+
+{% for element in ded %}
+<div class="row">
+	<div class="col-md-12">
+		<p>{{ element.name }} ({{ element.keyword }})</p>
+		<p>
+			({% if element.min_group == element.max_group %}
+				{{ element.min_group_hex }}
+			{% else %}
+				{{ element.min_group_hex }} - {{ element.max_group_hex }}
+			{% endif %},
+			{% if element.min_element == element.max_element %}
+				{{ element.min_element_hex }}
+			{% else %}
+				{{ element.min_element_hex }} - {{ element.max_element_hex }}
+			{% endif %})
+		</p>
+		<p>Value Representation: {{ element.VR }}</p>
+		<p>Value Multiplicity: {{ element.VM }}</p>
+		{% if element.status %}<p>Status: {{ element.status }}</p>{% endif %}
+	</div>
+</div>
+<hr />
+{% endfor %}
+
+{% endblock %}
