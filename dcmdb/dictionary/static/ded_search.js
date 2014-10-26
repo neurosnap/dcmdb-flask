@@ -11,7 +11,6 @@ $(function() {
      */
     var popover_defaults = {
         "placement": "auto",
-        "title": "Tag",
         "trigger": "hover",
     };
 
@@ -109,25 +108,33 @@ $(function() {
                     $("#de_final_results").html(de_content);
 
                     $("#de_info").hide();
-                    $("#de_num_results").html(data.num_results + " data elements found!");
+                    var res_content = data.num_results +
+                                      " data elements found! " +
+                                      " Hover the <i class='fa fa-info-circle'></i>" +
+                                      " icon to get information on data element property";
+                    $("#de_num_results").html(res_content);
 
                     /*
                      * Override any default popover settings
                      * and activate popovers
                      */
                     $(".de-name").popover($.extend(popover_defaults, {
+                        "title": "Name",
                         "content": "This is the name of the data element.  The keyword is an identified used in the DICOM standard"
                     }));
 
                     $(".de-tag").popover($.extend(popover_defaults, {
+                        "title": "Tag",
                         "content": "This is the data element tag information"
                     }));
 
                     $(".de-vm").popover($.extend(popover_defaults, {
+                        "title": "Value Multiplicity",
                         "content": "This is the data element value multiplicity information"
                     }));
 
                     $(".de-vr").popover($.extend(popover_defaults, {
+                        "title": "Value Representation",
                         "content": "This is the data element tag value representation information"
                     }));
                 } else {
