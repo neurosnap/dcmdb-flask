@@ -3,6 +3,7 @@
  */
 $(function() {
 
+    var timer;
     /*
      * Initiate Handlebars templating:
      * Grab HTML inside the handlerbars' script tag
@@ -34,6 +35,13 @@ $(function() {
     $("#de_search").on("click", function(e) {
         e.preventDefault();
         get_data_elements();
+    });
+
+    $("#query").on("keyup", function(e) {
+        window.clearTimeout(timer);
+        timer = setTimeout(function() {
+            get_data_elements();
+        }, 800);
     });
 
     /*
@@ -102,7 +110,8 @@ $(function() {
                 var data_elements = data.data_elements;
                 if (data_elements.length > 0) {
                     // apply pagination template
-                    if (data.hasOwnProperty("pages")) {
+                    if (data.hasOwnProperty("pages")
+                        && data.pages.length > 1) {
                         var de_pager = de_pager_template({
                             "pages": data.pages
                         });
