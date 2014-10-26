@@ -1,61 +1,99 @@
 {% extends "base.html" %}
 
+{% block css %}
+<link href="{{ url_for('dictionary.static', filename='ded_search.css') }}" rel="stylesheet">
+{% endblock %}
+
 {% block js %}
+<script src="{{ url_for('static', filename='bower_components/handlebars/handlebars.min.js') }}"></script>
+<script src="{{ url_for('dictionary.static', filename='ded_search.js') }}"></script>
+{% raw %}
+<script id="de_results" type="text/x-handlebars-template">
+	{{#if data_elements}}
+	{{#each data_elements}}
+	<div class="row">
+		<div class="col-md-6">
+			<p><h4>
+				<i class="fa fa-info-circle de-name"></i> {{ name }} <small>({{ keyword }})</small>
+			</h4></p>
+			<p><i class="fa fa-info-circle de-vr"></i> <strong>Value Representation</strong>: {{ VR }}</p>
+			{{#if status}}<p><i class="fa fa-info-circel de-status"></i> <strong>Status</strong>: {{ status }}</p>{{/if}}
+		</div>
+		<div class="col-md-6">
+			<p><h4>
+				<i class="fa fa-info-circle de-tag"></i> 
+				({{#if group_hex }}{{ group_hex }}{{else}}{{ min_group_hex }} - {{ max_group_hex }}{{/if}},
+				 {{#if element_hex }}{{ element_hex }}{{else}}{{ min_element_hex }} - {{ max_element_hex }}{{/if}})
+			</h4></p>
+			<p><i class="fa fa-info-circle de-vm"></i> <strong>Value Multiplicity</strong>: {{ VM }}</p>
+		</div>
+	</div>
+	<hr />
+	{{/each}}
+	{{else}}
+	<div class="alert alert-warning">Oops, cannot find any data elements matching your search</div>
+	{{/if}}
+</script>
+
+<script id="de_pages" type="text/x-handlebars-template">
+	{{# if pages}}
+	<ul class="pagination">
+		<li class="de-pager-back"><a href="#">&laquo;</a></li>
+		{{#each pages}}
+		<li {{#if @first}}class="active"{{/if}}><a href="#">{{this}}</a></li>
+		{{/each}}
+		<li class="de-pager-forward"><a href="#">&raquo;</a></li>
+	</ul>
+	{{/if}}
+</script>
+{% endraw %}
 {% endblock %}
 
 {% block content %}
 <div class="row">
 	<div class="col-md-2">
 		<div class="input-group">
-			<h5>Search</h5>
+			<h5>Data Element Finder</h5>
 		</div>
 	</div>
-	<div class="col-md-7">
-		<form role="search" method="POST" action="{{ url_for('dictionary.search') }}">
-			<div class="col-md-10">
+	<div class="col-md-10">
+		<form role="search" id="de_form">
+			<div class="col-md-9">
 				<div class="form-group">
-					<input type="text" class="form-control" name="query" placeholder="Find a data element, e.g. 0x0008 or 16,1" value="{% if query %}{{ query }}{% endif %}">
+					<input type="text" class="form-control" id="query" placeholder="Find a data element, e.g. 0x8 or 22,0x1090 or modality" value="{% if query %}{{ query }}{% endif %}">
 				</div>
 			</div>
-			<div class="col-md-2">
-				<button class="btn btn-primary" type="submit">Search</button>
+			<div class="col-md-3">
+				<button class="btn btn-primary" type="submit" id="de_search">
+					<i class="fa fa-search"></i> Find
+				</button>
+				<a href="#" id="de_clear">Clear</a>
 			</div>
 		</form>
 	</div>
 </div>
 
-<hr />
-
-{% if ded %}
-{% for element in ded %}
 <div class="row">
-	<div class="col-md-12">
-		<p>{{ element.name }} ({{ element.keyword }})</p>
-		<p>
-			({% if element.min_group == element.max_group %}
-				{{ element.min_group_hex }}
-			{% else %}
-				{{ element.min_group_hex }} - {{ element.max_group_hex }}
-			{% endif %},
-			{% if element.min_element == element.max_element %}
-				{{ element.min_element_hex }}
-			{% else %}
-				{{ element.min_element_hex }} - {{ element.max_element_hex }}
-			{% endif %})
-		</p>
-		<p>Value Representation: {{ element.VR }}</p>
-		<p>Value Multiplicity: {{ element.VM }}</p>
-		{% if element.status %}<p>Status: {{ element.status }}</p>{% endif %}
+	<div class="col-md-offset-2 col-md-10">
+		<p id="de_num_results"></p>
 	</div>
 </div>
+
+<div class="row">
+	<div class="col-md-12 text-center de-pager"></div>
+</div>
+
 <hr />
-{% endfor %}
-{% else %}
-	{% if query %}
-	<div class="alert alert-warning">Oops, cannot find any data elements matching your search</div>
-	{% else %}
-	<div class="alert alert-info">Search for a data element by tag group, tag element, value representation, or name</div>
-	{% endif %}
-{% endif %}
+
+<div id="de_final_results"></div>
+<div id="de_info" class="alert alert-info">
+	Search for a data element by tag group, tag element, value representation, or name
+</div>
+
+<div class="row">
+	<div class="col-md-12 text-center de-pager"></div>
+</div>
+
+<hr />
 
 {% endblock %}

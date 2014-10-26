@@ -1,0 +1,12 @@
+.de-tag, .de-name, .de-vm, .de-vr {
+    cursor: pointer;
+    padding: 5px;
+}
+
+#de_num_results {
+    margin-left: 13px;
+}
+
+#de_clear {
+    margin-left: 5px;
+}

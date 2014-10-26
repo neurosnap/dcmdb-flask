@@ -41,6 +41,35 @@ class DataElement(db.Model):
                         self.min_element, self.max_element)
 
     @property
+    def json(self):
+
+        properties = {
+            "name": self.name,
+            "keyword": self.keyword,
+            "min_group": self.min_group,
+            "max_group": self.max_group,
+            "min_element": self.min_element,
+            "max_element": self.max_element,
+            "VR": self.VR,
+            "VM": self.VM,
+            "status": self.status,
+            "min_group_hex": self.min_group_hex,
+            "max_group_hex": self.max_group_hex,
+            "min_element_hex": self.min_element_hex,
+            "max_element_hex": self.max_element_hex,
+        }
+
+        if self.min_group == self.max_group:
+            properties["group"] = self.min_group
+            properties["group_hex"] = self.min_group_hex
+
+        if self.min_element == self.max_element:
+            properties["element"] = self.min_element
+            properties["element_hex"] = self.min_element_hex
+
+        return properties
+
+    @property
     def min_group_hex(self):
         return hex(self.min_group)
 
