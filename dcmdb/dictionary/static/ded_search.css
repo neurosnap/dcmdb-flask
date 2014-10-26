@@ -10,3 +10,7 @@
 #de_clear {
     margin-left: 5px;
 }
+
+#de_no_results {
+    display: none;
+}

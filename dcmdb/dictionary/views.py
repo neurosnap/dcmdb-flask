@@ -29,6 +29,9 @@ def query(query=None):
     if request_query:
         query = request_query
 
+    if query is None:
+        return jsonify({ "data_elements": [], "num_results": 0 })
+
     try:
         if "," in query:
             params = query.split(",")

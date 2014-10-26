@@ -41,7 +41,7 @@ $(function() {
         window.clearTimeout(timer);
         timer = setTimeout(function() {
             get_data_elements();
-        }, 800);
+        }, 500);
     });
 
     /*
@@ -97,26 +97,35 @@ $(function() {
             page = 1;
         }
 
+        var query = $("#query").val();
+        if (query == "") {
+            return;
+        }
+
         $.ajax({
             "url": "/dictionary/query/",
             "type": "GET",
             "dataType": "json",
             "data": {
-                "query": $("#query").val(),
+                "query": query,
                 "page": page
             },
             "success": function(data) {
                 //console.log(data);
                 var data_elements = data.data_elements;
                 if (data_elements.length > 0) {
+                    $("#de_no_results").hide();
                     // apply pagination template
-                    if (data.hasOwnProperty("pages")
-                        && data.pages.length > 1) {
-                        var de_pager = de_pager_template({
-                            "pages": data.pages
-                        });
-                        $(".de-pager").html(de_pager);
-                        set_active_page(page);
+                    if (data.hasOwnProperty("pages")) {
+                        if (data.pages.length > 1) {
+                            var de_pager = de_pager_template({
+                                "pages": data.pages
+                            });
+                            $(".de-pager").html(de_pager);
+                            set_active_page(page);
+                        } else {
+                            $(".de-pager").html("");
+                        }
                     }
 
                     // apply data element results template
@@ -153,8 +162,10 @@ $(function() {
                         "content": "This is the data element tag value representation information"
                     }));
                 } else {
+                    $(".de-pager").html("");
                     $("#de_final_results").html("");
-                    $("#de_info").show();
+                    $("#de_info").hide();
+                    $("#de_no_results").show();
                 }
             }
         });
