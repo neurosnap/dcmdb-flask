@@ -3,6 +3,11 @@
  */
 $(function() {
 
+    /*
+     * Initiate Handlebars templating:
+     * Grab HTML inside the handlerbars' script tag
+     * and prepare it for DOM injection as a template
+     */
     var de_pager_template = Handlebars.compile($("#de_pages").html());
     var de_template = Handlebars.compile($("#de_results").html());
 
@@ -96,6 +101,7 @@ $(function() {
                 //console.log(data);
                 var data_elements = data.data_elements;
                 if (data_elements.length > 0) {
+                    // apply pagination template
                     if (data.hasOwnProperty("pages")) {
                         var de_pager = de_pager_template({
                             "pages": data.pages
@@ -104,6 +110,7 @@ $(function() {
                         set_active_page(page);
                     }
 
+                    // apply data element results template
                     var de_content = de_template(data);
                     $("#de_final_results").html(de_content);
 
@@ -114,13 +121,12 @@ $(function() {
                                       " icon to get information on data element property";
                     $("#de_num_results").html(res_content);
 
-                    /*
-                     * Override any default popover settings
-                     * and activate popovers
-                     */
+                    // Override any default popover settings
+                    // and activate popovers
                     $(".de-name").popover($.extend(popover_defaults, {
                         "title": "Name",
-                        "content": "This is the name of the data element.  The keyword is an identified used in the DICOM standard"
+                        "content": "This is the name of the data element. " +
+                                   "The keyword is an identified used in the DICOM standard"
                     }));
 
                     $(".de-tag").popover($.extend(popover_defaults, {
