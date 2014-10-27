@@ -41,6 +41,7 @@ $(function() {
     $("#de_clear").on("click", function(e) {
         e.preventDefault();
         $("#de_final_results").html("");
+        $(".de-pager").html("");
         $("#query").val("");
         $("#de_info").show();
     });
@@ -143,17 +144,21 @@ $(function() {
 
                     $(".de-tag").popover($.extend(popover_defaults, {
                         "title": "Tag",
-                        "content": "This is the data element tag information"
+                        "content": "A unique identifier for a Data Element " +
+                                   "composed of an ordered pair of numbers " +
+                                   "(a Group Number followed by an Element Number)."
                     }));
 
                     $(".de-vm").popover($.extend(popover_defaults, {
                         "title": "Value Multiplicity",
-                        "content": "This is the data element value multiplicity information"
+                        "content": "Specifies the number of Values contained " +
+                                   "in the Value Field of a Data Element."
                     }));
 
                     $(".de-vr").popover($.extend(popover_defaults, {
                         "title": "Value Representation",
-                        "content": "Specifies the data type and format of the Value(s) contained in the Value Field of a Data Element."
+                        "content": "Specifies the data type and format of " +
+                                   "the Value(s) contained in the Value Field of a Data Element."
                     }));
                 } else {
                     $(".de-pager").html("");
