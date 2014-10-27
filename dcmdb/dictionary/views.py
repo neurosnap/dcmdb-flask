@@ -61,7 +61,7 @@ def query(query=None):
                     ).all()
     except ValueError:
         data_element_results = DataElement.query.filter(
-                                query.lower()==func.lower(DataElement.name)).all()
+                                func.lower(DataElement.name).like('%' + query.lower() + '%')).all()
 
     data_elements = [element.json for element in data_element_results]
 
