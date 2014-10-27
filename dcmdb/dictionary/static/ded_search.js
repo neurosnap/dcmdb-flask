@@ -3,7 +3,11 @@
  */
 $(function() {
 
+    /*
+     * Search key up variables
+     */
     var timer;
+    var search_delay = 500;
     /*
      * Initiate Handlebars templating:
      * Grab HTML inside the handlerbars' script tag
@@ -11,7 +15,6 @@ $(function() {
      */
     var de_pager_template = Handlebars.compile($("#de_pages").html());
     var de_template = Handlebars.compile($("#de_results").html());
-
     /*
      * Tooltips for data elements
      */
@@ -20,11 +23,16 @@ $(function() {
         "trigger": "hover",
     };
 
+    /*
+     * Primary search event handler:
+     * If the amount of time to sleep the setTimeout function triggers
+     * then the clearTimeout will not have a chance to activate again
+     */
     $("#query").on("keyup", function(e) {
         window.clearTimeout(timer);
         timer = setTimeout(function() {
             get_data_elements();
-        }, 500);
+        }, search_delay);
     });
 
     /*
@@ -124,6 +132,9 @@ $(function() {
 
                     // Override any default popover settings
                     // and activate popovers
+                    // Note: I hate settings new event handlers on AJAX success
+                    //  but I cannot set a popover select for 4 popovers on one
+                    //  DOM element, such as "body"
                     $(".de-name").popover($.extend(popover_defaults, {
                         "title": "Name",
                         "content": "This is the name of the data element. " +
@@ -162,9 +173,7 @@ $(function() {
 
         if (page == 1) {
             $(".de-pager-back").addClass("disabled");
-        }
-
-        if (page == page_length - 2) {
+        } else if (page == page_length - 2) {
             $(".de-pager-forward").addClass("disabled");
         }
 

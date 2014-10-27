@@ -1,7 +1,7 @@
 from __future__ import division, print_function
 import os.path
 
-from flask import Flask, render_template, request, send_from_directory, jsonify
+from flask import Flask, render_template, request, send_from_directory, jsonify, g
 
 from .models import db
 from .explorer.views import blueprint as explorer
@@ -15,7 +15,7 @@ class DefaultSettings(object):
     # Configure Flask
     SECRET_KEY = 'THIS IS AN INSECURE SECRET'
     CSRF_ENABLED = False
-    DEBUG = True
+    DEBUG = False
     UPLOAD_FOLDER = os.path.join(PARENT_DIR, 'uploads')
     MAX_CONTENT_LENGTH = 5 * 2 ** 20
 
@@ -32,9 +32,10 @@ def create_app():
         pass
 
     # load the views via blueprints
-    app.register_blueprint(uploader)
-    app.register_blueprint(explorer)
     app.register_blueprint(dictionary)
+    if app.debug:
+        app.register_blueprint(uploader)
+        app.register_blueprint(explorer)
     # adds continue and break to jinja template language
     app.jinja_env.add_extension('jinja2.ext.loopcontrols')
 
@@ -55,6 +56,10 @@ def create_app():
                     maxBytes=10000, backupCount=1)
         handler.setLevel(logging.DEBUG)
         app.logger.addHandler(handler)
+
+    @app.before_request
+    def before_request():
+        g.debug = app.debug
 
     @app.errorhandler(404)
     def page_not_found(e):
