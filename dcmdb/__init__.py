@@ -1,7 +1,8 @@
 from __future__ import division, print_function
 import os.path
 
-from flask import Flask, render_template, request, send_from_directory, jsonify, g
+from flask import Flask, g, render_template, request, \
+                    send_from_directory, jsonify
 
 from .models import db
 from .explorer.views import blueprint as explorer

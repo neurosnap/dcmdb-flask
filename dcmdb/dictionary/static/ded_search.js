@@ -153,7 +153,7 @@ $(function() {
 
                     $(".de-vr").popover($.extend(popover_defaults, {
                         "title": "Value Representation",
-                        "content": "This is the data element tag value representation information"
+                        "content": "Specifies the data type and format of the Value(s) contained in the Value Field of a Data Element."
                     }));
                 } else {
                     $(".de-pager").html("");
