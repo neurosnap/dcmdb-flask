@@ -20,23 +20,6 @@ $(function() {
         "trigger": "hover",
     };
 
-    /*
-     * Disable form submit functionality
-     * we are using AJAX to request DED data
-     */
-    $("#de_search").on("submit", function(e) {
-        e.preventDefault();
-        $("#de_search").trigger();
-    });
-
-    /*
-     * Primary DED search event handler
-     */
-    $("#de_search").on("click", function(e) {
-        e.preventDefault();
-        get_data_elements();
-    });
-
     $("#query").on("keyup", function(e) {
         window.clearTimeout(timer);
         timer = setTimeout(function() {
