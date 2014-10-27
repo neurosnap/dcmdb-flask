@@ -11,3 +11,4 @@ test/bower_components
 *.*~
 local_settings.py
 uploads
+*.log
