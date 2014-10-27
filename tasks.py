@@ -70,12 +70,14 @@ def add_data_elements(fname):
             group_min, group_max = min_max_hex(group)
             element_min, element_max = min_max_hex(element)
             model = DataElement(de['Name'],
+                                de['Type'],
                                 int(group_min, 16), int(group_max, 16),
                                 int(element_min, 16), int(element_max, 16),
                                 de['Keyword'], de['VR'], de['VM'],
                                 de['Status'])
         else:
             model = DataElement(de['Name'],
+                                de['Type'],
                                 int(group, 16), int(group, 16),
                                 int(element, 16), int(element, 16),
                                 de['Keyword'], de['VR'], de['VM'],

@@ -9,6 +9,7 @@ class DataElement(db.Model):
     __tablename__ = 'data_element'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), nullable=False)
+    type = db.Column(db.String(255), nullable=True)
     min_group = db.Column(db.Integer, nullable=False)
     max_group = db.Column(db.Integer, nullable=False)
     min_element = db.Column(db.Integer, nullable=False)
@@ -19,10 +20,11 @@ class DataElement(db.Model):
     status = db.Column(db.String(255), nullable=True)
     created = db.Column(db.DateTime)
 
-    def __init__(self, name=None, min_group=None, max_group=None,
+    def __init__(self, name=None, type=None, min_group=None, max_group=None,
                  min_element=None, max_element=None, keyword=None, VR=None,
                  VM=None, status=None, created=None):
         self.name = name
+        self.type = type
         self.min_group = min_group
         self.max_group = max_group
         self.min_element = min_element
@@ -45,6 +47,7 @@ class DataElement(db.Model):
 
         properties = {
             "name": self.name,
+            "type": self.type,
             "keyword": self.keyword,
             "min_group": self.min_group,
             "max_group": self.max_group,

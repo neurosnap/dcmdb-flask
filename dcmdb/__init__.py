@@ -15,8 +15,8 @@ PARENT_DIR = os.path.abspath(os.path.join(BASE_DIR, os.pardir))
 class DefaultSettings(object):
     # Configure Flask
     SECRET_KEY = 'THIS IS AN INSECURE SECRET'
-    CSRF_ENABLED = False
-    DEBUG = False
+    CSRF_ENABLED = True
+    DEBUG = True
     UPLOAD_FOLDER = os.path.join(PARENT_DIR, 'uploads')
     MAX_CONTENT_LENGTH = 5 * 2 ** 20
 

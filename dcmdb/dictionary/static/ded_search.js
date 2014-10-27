@@ -139,8 +139,7 @@ $(function() {
                     //  DOM element, such as "body"
                     $(".de-name").popover($.extend(popover_defaults, {
                         "title": "Name",
-                        "content": "This is the name of the data element. " +
-                                   "The keyword is an identified used in the DICOM standard"
+                        "content": "The name of the data element."
                     }));
 
                     $(".de-tag").popover($.extend(popover_defaults, {
@@ -160,6 +159,24 @@ $(function() {
                         "title": "Value Representation",
                         "content": "Specifies the data type and format of " +
                                    "the Value(s) contained in the Value Field of a Data Element."
+                    }));
+
+                    $(".de-status").popover($.extend(popover_defaults, {
+                        "title": "Status",
+                        "content": "Current staus of data element. " +
+                                   "'RET' is used to indicate that the " +
+                                   "corresponding Data Element, SOP Class, " +
+                                   "or Transfer Syntax has been retired. " +
+                                   "'DICOS' stands for Digital Imaging and " +
+                                   "Communication for Security. " +
+                                   "'DICONDE' stands for Digital Imaging and " +
+                                   "Communication in Nondestructive Evaluation"
+                    }));
+
+                    $(".de-type").popover($.extend(popover_defaults, {
+                        "title": "Type",
+                        "content": "Specifies the different registry the data " +
+                                   "element was obtained from."
                     }));
                 } else {
                     $(".de-pager").html("");

@@ -17,7 +17,7 @@
 				<i class="fa fa-info-circle de-name"></i> {{ name }} <small>({{ keyword }})</small>
 			</h4></p>
 			<p><i class="fa fa-info-circle de-vr"></i> <strong>Value Representation</strong>: {{ VR }}</p>
-			{{#if status}}<p><i class="fa fa-info-circel de-status"></i> <strong>Status</strong>: {{ status }}</p>{{/if}}
+			{{#if type}}<p><i class="fa fa-info-circle de-type"></i> <strong>Type</strong>: {{ type }}</p>{{/if}}
 		</div>
 		<div class="col-md-6">
 			<p><h4>
@@ -26,6 +26,7 @@
 				 {{#if element_hex }}{{ element_hex }}{{else}}{{ min_element_hex }} - {{ max_element_hex }}{{/if}})
 			</h4></p>
 			<p><i class="fa fa-info-circle de-vm"></i> <strong>Value Multiplicity</strong>: {{ VM }}</p>
+			{{#if status}}<p><i class="fa fa-info-circle de-status"></i> <strong>Status</strong>: {{ status }}</p>{{/if}}
 		</div>
 	</div>
 	<hr />
