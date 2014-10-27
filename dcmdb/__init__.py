@@ -21,7 +21,7 @@ class DefaultSettings(object):
     MAX_CONTENT_LENGTH = 5 * 2 ** 20
 
 def create_app():
-    LOG_DIR = ""
+    LOG_DIR = "/srv/logs/dcmdb"
 
     app = Flask(__name__)
     # default config

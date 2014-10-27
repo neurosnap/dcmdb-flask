@@ -157,7 +157,7 @@ class Image(db.Model):
     uid = db.Column(db.String(255), nullable=False)
     series_id = db.Column(db.Integer, db.ForeignKey('series.id'))
     filename = db.Column(db.String(255), nullable=False)
-    dicom = db.Column(JSON)
+    #dicom = db.Column(JSON)
     transfer_syntax_uid = db.Column(db.String(255), nullable=False)
     image_number = db.Column(db.Integer)
     image_orientation_patient = db.Column(db.String(255), nullable=True)
