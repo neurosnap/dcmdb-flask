@@ -41,6 +41,7 @@ $(function() {
     $("#de_clear").on("click", function(e) {
         e.preventDefault();
         $("#de_final_results").html("");
+        $("#de_no_results").html("");
         $(".de-pager").html("");
         $("#query").val("");
         $("#de_info").show();
