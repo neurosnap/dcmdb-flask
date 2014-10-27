@@ -61,6 +61,8 @@ def add_data_elements(fname):
         ded = json.load(fp)
 
     for de in ded:
+        if DataElement.query.filter(DataElement.name==de['Name']).first():
+            continue
         cur_tag = de['Tag'].replace("(", "")
         cur_tag = cur_tag.replace(")", "")
         group, element = cur_tag.split(",")
