@@ -55,9 +55,9 @@ def query(query=None):
 
             data_element_results = DataElement.query \
                     .filter(or_(and_(query>=DataElement.min_group,
-                                    query<= DataElement.max_group),
+                                     query<=DataElement.max_group),
                                 and_(query>=DataElement.min_element,
-                                    query<= DataElement.max_element))
+                                     query<=DataElement.max_element))
                     ).all()
     except ValueError:
         data_element_results = DataElement.query.filter(
